@@ -140,7 +140,38 @@ void adicionarTrabalho() {
 }
 
 void processarImpressao() {
-    printf("Em construcao...\n");
+    Trabalho atual;
+
+    if (quantidadePrioritaria == 0 && quantidadeNormal == 0) {
+        printf("Nao ha trabalhos para imprimir!\n");
+        return;
+    }
+
+    // Prioridade primeiro
+    if (quantidadePrioritaria > 0) {
+        atual = filaPrioritaria[inicioPrioritaria];
+
+        printf("\n=== PROCESSANDO TRABALHO PRIORITARIO ===\n");
+        printf("ID: %d\n", atual.id);
+        printf("Arquivo: %s\n", atual.nomeArquivo);
+        printf("Paginas: %d\n", atual.paginas);
+
+        inicioPrioritaria = (inicioPrioritaria + 1) % MAX;
+        quantidadePrioritaria--;
+    }
+    else {
+        atual = filaNormal[inicioNormal];
+
+        printf("\n=== PROCESSANDO TRABALHO NORMAL ===\n");
+        printf("ID: %d\n", atual.id);
+        printf("Arquivo: %s\n", atual.nomeArquivo);
+        printf("Paginas: %d\n", atual.paginas);
+
+        inicioNormal = (inicioNormal + 1) % MAX;
+        quantidadeNormal--;
+    }
+
+    printf("Impressao concluida!\n");
 }
 
 void listarFilas() {
