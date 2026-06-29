@@ -257,7 +257,60 @@ void buscarTrabalho() {
 }
 
 void cancelarTrabalho() {
-    printf("Em construcao...\n");
+    int idBusca;
+    int i, j, pos;
+
+    if (quantidadePrioritaria == 0 && quantidadeNormal == 0) {
+        printf("Todas as filas estao vazias!\n");
+        return;
+    }
+
+    printf("Digite o ID do trabalho a cancelar: ");
+    scanf("%d", &idBusca);
+
+    // Procurar na fila prioritária
+    for (i = 0; i < quantidadePrioritaria; i++) {
+        pos = (inicioPrioritaria + i) % MAX;
+
+        if (filaPrioritaria[pos].id == idBusca) {
+            for (j = i; j < quantidadePrioritaria - 1; j++) {
+                int atual = (inicioPrioritaria + j) % MAX;
+                int prox = (inicioPrioritaria + j + 1) % MAX;
+                filaPrioritaria[atual] = filaPrioritaria[prox];
+            }
+
+            fimPrioritaria =
+                (fimPrioritaria - 1 + MAX) % MAX;
+
+            quantidadePrioritaria--;
+
+            printf("Trabalho cancelado da fila prioritaria!\n");
+            return;
+        }
+    }
+
+    // Procurar na fila normal
+    for (i = 0; i < quantidadeNormal; i++) {
+        pos = (inicioNormal + i) % MAX;
+
+        if (filaNormal[pos].id == idBusca) {
+            for (j = i; j < quantidadeNormal - 1; j++) {
+                int atual = (inicioNormal + j) % MAX;
+                int prox = (inicioNormal + j + 1) % MAX;
+                filaNormal[atual] = filaNormal[prox];
+            }
+
+            fimNormal =
+                (fimNormal - 1 + MAX) % MAX;
+
+            quantidadeNormal--;
+
+            printf("Trabalho cancelado da fila normal!\n");
+            return;
+        }
+    }
+
+    printf("Trabalho nao encontrado!\n");
 }
 
 void salvarCSV() {
