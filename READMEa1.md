@@ -1,7 +1,7 @@
 # Trabalho A1 — Playlist de Músicas (Lista Simples em C)
 
-**Alunos:** Giovana Amaral Dos Santos e Victor 
-**Disciplina:** Estrutura de Dados  
+**Alunos:** Giovana Amaral Dos Santos e Victor Costa Da Cruz
+**Turma:** Análise e Desenvolvimento de Sistemas
 **Tema:** A1 — Playlist de Músicas  
 **Linguagem:** C (padrão C99)
 
