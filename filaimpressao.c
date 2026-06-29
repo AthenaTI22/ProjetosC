@@ -214,7 +214,46 @@ void listarFilas() {
 }
 
 void buscarTrabalho() {
-    printf("Em construcao...\n");
+    int idBusca;
+    int i, pos;
+
+    if (quantidadePrioritaria == 0 && quantidadeNormal == 0) {
+        printf("Todas as filas estao vazias!\n");
+        return;
+    }
+
+    printf("Digite o ID do trabalho: ");
+    scanf("%d", &idBusca);
+
+    // Busca na fila prioritária
+    for (i = 0; i < quantidadePrioritaria; i++) {
+        pos = (inicioPrioritaria + i) % MAX;
+
+        if (filaPrioritaria[pos].id == idBusca) {
+            printf("\nTrabalho encontrado na fila prioritaria!\n");
+            printf("ID: %d\n", filaPrioritaria[pos].id);
+            printf("Arquivo: %s\n", filaPrioritaria[pos].nomeArquivo);
+            printf("Paginas: %d\n", filaPrioritaria[pos].paginas);
+            printf("Tipo: %c\n", filaPrioritaria[pos].tipo);
+            return;
+        }
+    }
+
+    // Busca na fila normal
+    for (i = 0; i < quantidadeNormal; i++) {
+        pos = (inicioNormal + i) % MAX;
+
+        if (filaNormal[pos].id == idBusca) {
+            printf("\nTrabalho encontrado na fila normal!\n");
+            printf("ID: %d\n", filaNormal[pos].id);
+            printf("Arquivo: %s\n", filaNormal[pos].nomeArquivo);
+            printf("Paginas: %d\n", filaNormal[pos].paginas);
+            printf("Tipo: %c\n", filaNormal[pos].tipo);
+            return;
+        }
+    }
+
+    printf("Trabalho nao encontrado!\n");
 }
 
 void cancelarTrabalho() {
