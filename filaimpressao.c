@@ -37,7 +37,7 @@ int main() {
     do {
         printf("\n=== FILA DE IMPRESSAO ===\n");
         printf("1 - Adicionar trabalho\n");
-        printf("2 - Processar impressão\n");
+        printf("2 - Processar impressao\n");
         printf("3 - Listar filas\n");
         printf("4 - Buscar trabalho\n");
         printf("5 - Cancelar trabalho\n");
@@ -105,7 +105,7 @@ void adicionarTrabalho() {
 
     printf("Tipo (N = Normal / P = Prioritario): ");
     scanf(" %c", &novo.tipo);
-    
+
     novo.tipo = toupper(novo.tipo);
 
     if (novo.tipo != 'N' && novo.tipo != 'P') {
@@ -144,7 +144,42 @@ void processarImpressao() {
 }
 
 void listarFilas() {
-    printf("Em construcao...\n");
+     int i, pos;
+
+    if (quantidadePrioritaria == 0 && quantidadeNormal == 0) {
+        printf("Todas as filas estao vazias!\n");
+        return;
+    }
+
+    printf("\n=== FILA PRIORITARIA ===\n");
+
+    if (quantidadePrioritaria == 0) {
+        printf("Fila prioritaria vazia.\n");
+    } else {
+        for (i = 0; i < quantidadePrioritaria; i++) {
+            pos = (inicioPrioritaria + i) % MAX;
+
+            printf("\nID: %d\n", filaPrioritaria[pos].id);
+            printf("Arquivo: %s\n", filaPrioritaria[pos].nomeArquivo);
+            printf("Paginas: %d\n", filaPrioritaria[pos].paginas);
+            printf("Tipo: %c\n", filaPrioritaria[pos].tipo);
+        }
+    }
+
+    printf("\n=== FILA NORMAL ===\n");
+
+    if (quantidadeNormal == 0) {
+        printf("Fila normal vazia.\n");
+    } else {
+        for (i = 0; i < quantidadeNormal; i++) {
+            pos = (inicioNormal + i) % MAX;
+
+            printf("\nID: %d\n", filaNormal[pos].id);
+            printf("Arquivo: %s\n", filaNormal[pos].nomeArquivo);
+            printf("Paginas: %d\n", filaNormal[pos].paginas);
+            printf("Tipo: %c\n", filaNormal[pos].tipo);
+        }
+    }
 }
 
 void buscarTrabalho() {
