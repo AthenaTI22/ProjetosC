@@ -314,7 +314,48 @@ void cancelarTrabalho() {
 }
 
 void salvarCSV() {
-    printf("Em construcao...\n");
+    FILE *arquivo;
+    int i, pos;
+
+    arquivo = fopen("trabalhos.csv", "w");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir arquivo!\n");
+        return;
+    }
+
+    fprintf(arquivo, "id;nomeArquivo;paginas;tipo\n");
+
+    // Salvar fila prioritária
+    for (i = 0; i < quantidadePrioritaria; i++) {
+        pos = (inicioPrioritaria + i) % MAX;
+
+        fprintf(
+            arquivo,
+            "%d;%s;%d;%c\n",
+            filaPrioritaria[pos].id,
+            filaPrioritaria[pos].nomeArquivo,
+            filaPrioritaria[pos].paginas,
+            filaPrioritaria[pos].tipo
+        );
+    }
+
+    // Salvar fila normal
+    for (i = 0; i < quantidadeNormal; i++) {
+        pos = (inicioNormal + i) % MAX;
+
+        fprintf(
+            arquivo,
+            "%d;%s;%d;%c\n",
+            filaNormal[pos].id,
+            filaNormal[pos].nomeArquivo,
+            filaNormal[pos].paginas,
+            filaNormal[pos].tipo
+        );
+    }
+
+    fclose(arquivo);
+    printf("Dados salvos com sucesso em trabalhos.csv!\n");
 }
 
 void carregarCSV() {
