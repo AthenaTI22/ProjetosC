@@ -100,45 +100,66 @@ protocolo;local;tipo;horario
 
 ---
 
-# Trabalho C3 — Escalonador de Processos (Round Robin)
+````md
+
+
+# Trabalho C2 — Fila de Impressão
 
 ## Objetivo
 
-Simular um escalonador de processos utilizando o algoritmo **Round Robin**.
+Simular um sistema de fila de impressão com trabalhos **normais** e **prioritários**.
 
-Cada processo recebe um tempo fixo de CPU chamado **quantum**.
-Caso não finalize dentro desse tempo, ele retorna para o fim da fila.
+O sistema segue a lógica de filas (**FIFO — First In, First Out**), onde o primeiro trabalho a entrar é o primeiro a ser processado. No entanto, trabalhos **prioritários** possuem preferência sobre os normais.
 
 ## Estrutura
 
-Fila circular (**FIFO**) implementada com vetor de `struct`.
+O programa utiliza duas filas implementadas com vetores de `struct`:
+
+* **Fila normal simples**
+* **Fila prioritária circular**
+
+Cada trabalho de impressão possui:
+
+* ID único
+* Nome do arquivo
+* Quantidade de páginas
+* Tipo (`N` para normal / `P` para prioritário)
 
 ## Funcionalidades
 
-* Enqueue (inserção na fila)
-* Dequeue (remoção da fila)
-* Consultar processo atual
-* Executar quantum
-* Remover processo por PID
-* Listagem dos processos
+* Adicionar trabalho de impressão
+* Separar automaticamente em fila normal ou prioritária
+* Processar impressão (prioritários primeiro)
+* Buscar trabalho por ID
+* Cancelar trabalho
+* Listar ambas as filas
 * Salvamento em CSV
 * Carregamento em CSV
+
+## Regras de Funcionamento
+
+* Trabalhos prioritários são processados antes dos normais
+* Se não houver trabalhos prioritários, a impressão ocorre pela fila normal
+* IDs duplicados não são permitidos
+* O tipo de trabalho aceita letras maiúsculas ou minúsculas (`N`, `n`, `P`, `p`)
 
 ## CSV
 
 Arquivo utilizado:
 
 ```text
-processos.csv
-```
+trabalhos.csv
+````
 
 Formato:
 
 ```csv
-pid;nome;prioridade;tempoRestante
+id;nomeArquivo;paginas;tipo
 ```
 
----
+```
+```
+
 
 # Tecnologias Utilizadas
 
