@@ -1,7 +1,9 @@
 # Projeto de Estruturas de Dados
 
 **Integrante(s):** Giovana Amaral Dos Santos, Victor Costa Da Cruz
+
 **Turma:** Análise e Desenvolvimento de Sistemas
+
 **Professor:** Nirton Afonso
 
 ---
