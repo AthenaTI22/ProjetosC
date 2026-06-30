@@ -2,12 +2,12 @@
 
 ## Integrante(s)
 
-* Giovana
-* (Adicionar demais integrantes, se houver)
+* Giovana Amaral Dos Santos
+* Victor Costa Da Cruz
 
 ## Turma
 
-* (Preencher turma)
+* Análise e Desenvolvimento de Sistemas
 
 ## Tema Escolhido
 
