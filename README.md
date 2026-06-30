@@ -149,6 +149,14 @@ Arquivo utilizado:
 
 ```text
 trabalhos.csv
+```
+
+Formato:
+
+```csv
+id;nomeArquivo;paginas;tipo
+```
+
 ````
 
 Formato:
