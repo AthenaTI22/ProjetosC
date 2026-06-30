@@ -359,5 +359,47 @@ void salvarCSV() {
 }
 
 void carregarCSV() {
-    printf("Em construcao...\n");
+    FILE *arquivo;
+    Trabalho temp;
+    char cabecalho[100];
+
+    arquivo = fopen("trabalhos.csv", "r");
+
+    if (arquivo == NULL) {
+        printf("Arquivo CSV nao encontrado. Iniciando filas vazias.\n");
+        return;
+    }
+
+    // Ignora cabeçalho
+    fgets(cabecalho, sizeof(cabecalho), arquivo);
+
+    while (
+        fscanf(
+            arquivo,
+            "%d;%49[^;];%d;%c\n",
+            &temp.id,
+            temp.nomeArquivo,
+            &temp.paginas,
+            &temp.tipo
+        ) == 4
+    ) {
+        if (temp.tipo == 'P') {
+            if (quantidadePrioritaria < MAX) {
+                filaPrioritaria[fimPrioritaria] = temp;
+                fimPrioritaria = (fimPrioritaria + 1) % MAX;
+                quantidadePrioritaria++;
+            }
+        }
+        else if (temp.tipo == 'N') {
+            if (quantidadeNormal < MAX) {
+                filaNormal[fimNormal] = temp;
+                fimNormal = (fimNormal + 1) % MAX;
+                quantidadeNormal++;
+            }
+        }
+    }
+
+    fclose(arquivo);
+
+    printf("Dados carregados do CSV com sucesso!\n");
 }
