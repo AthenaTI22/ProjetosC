@@ -1,35 +1,61 @@
-# Trabalho A1 — Playlist de Músicas (Lista Simples em C)
+# Trabalho A1 — Playlist de Músicas
 
-**Alunos:** Giovana Amaral Dos Santos e Victor Costa Da Cruz
-**Turma:** Análise e Desenvolvimento de Sistemas
-**Tema:** A1 — Playlist de Músicas  
-**Linguagem:** C (padrão C99)
+## Integrante(s)
+
+* Giovana Amaral Dos Santos
+* Victor Costa Da Cruz
+
+## Turma
+
+* Análise e Desenvolvimento de Sistemas
+
+## Tema Escolhido
+
+**Trabalho A — Tema A1: Playlist de Músicas**
+
+---
+
+# Objetivo do Programa
+
+Este programa simula uma playlist de músicas.
+
+O sistema permite:
+
+* cadastrar músicas
+* buscar músicas por ID
+* editar informações
+* excluir músicas
+* listar toda a playlist
+* salvar os dados em CSV
+* carregar os dados ao iniciar
+
+O objetivo do trabalho é praticar manipulação de listas simples em linguagem C usando vetores de `struct`.
 
 ---
 
-## 1. Descrição do Projeto
-Este projeto foi desenvolvido para a disciplina de Estrutura de Dados utilizando a linguagem C.
-O programa simula uma playlist de músicas usando uma lista simples sequencial implementada com vetor de `struct`.
-Cada música cadastrada possui os seguintes dados:
-- ID
-- Título
-- Artista
-- Duração em segundos
-- Gênero musical
-A capacidade máxima da lista é de 100 músicas.
+# Estrutura de Dados Utilizada
 
----
-## 2. Estrutura de Dados Utilizada
-Foi utilizada uma lista simples sequencial implementada com vetor.
+O programa foi desenvolvido em linguagem C utilizando:
 
-```c
+* `struct`
+* Vetores de `struct`
+* Lista sequencial simples
+* Busca linear
+* Arquivos CSV
+
+A playlist é armazenada em um vetor com capacidade máxima de 100 músicas.
+
+```c id="6wj6pw"
 #define MAX 100
-
-Musica lista[MAX];
-int quantidade = 0;
 ```
-### Struct utilizada
-```c
+
+---
+
+# Registro Principal (`struct`)
+
+Cada música é representada por uma estrutura:
+
+```c id="f07c1r"
 typedef struct {
     int id;
     char titulo[50];
@@ -39,193 +65,393 @@ typedef struct {
 } Musica;
 ```
 
-### Explicação
-- O vetor `lista` armazena as músicas.
-- Cada posição do vetor representa um registro.
-- A variável `quantidade` controla quantas posições estão ocupadas.
+---
+
+## Campos da struct
+
+| Campo   | Tipo     | Descrição                     |
+| ------- | -------- | ----------------------------- |
+| id      | int      | Identificador único da música |
+| titulo  | char[50] | Nome da música                |
+| artista | char[50] | Nome do artista               |
+| duracao | int      | Duração em segundos           |
+| genero  | char[30] | Gênero musical                |
+
+---
+
+# Estrutura da Lista
+
+A playlist utiliza um vetor de músicas:
+
+```c id="7g3j1g"
+Musica lista[MAX];
+```
+
+Também existe uma variável de controle:
+
+```c id="pcr1uq"
+int quantidade = 0;
+```
+
+Essa variável informa quantas músicas estão cadastradas.
 
 Exemplo:
-```text
-Índice:   0        1        2
-        [Mus1]   [Mus2]   [Mus3]
-```
-Se `quantidade = 3`, significa que existem 3 músicas cadastradas.
----
 
-## 3. Funcionalidades Implementadas
+Se:
 
-O programa possui um menu interativo com as seguintes opções:
-### 1 - Inserir música
-Permite cadastrar uma nova música.
-Regras:
-- Verifica se a lista está cheia.
-- Verifica se o ID já existe.
-- Insere a música na próxima posição livre do vetor.
-
-Exemplo de inserção:
-```c
-lista[quantidade] = novaMusica;
-quantidade++;
+```text id="7x0qqt"
+quantidade = 3
 ```
 
+Então existem 3 músicas válidas no vetor.
+
 ---
-### 2 - Buscar música
+
+# Conceito de Lista Simples
+
+Diferente de filas e pilhas, a lista permite:
+
+* inserir em qualquer posição
+* buscar qualquer elemento
+* editar registros
+* remover registros intermediários
+
+Exemplo:
+
+```text id="2ykmry"
+[Musica1][Musica2][Musica3]
+```
+
+Se remover a segunda:
+
+Antes:
+
+```text id="s7s7ju"
+[1][2][3]
+```
+
+Depois do deslocamento:
+
+```text id="83p7bs"
+[1][3]
+```
+
+Os elementos à direita precisam ser deslocados para preencher o espaço vazio.
+
+---
+
+# Funcionalidades Implementadas
+
+## 1. Inserir Música
+
+Função:
+
+```c id="9et4rb"
+inserirMusica()
+```
+
+Responsável por:
+
+* Ler ID
+* Ler título
+* Ler artista
+* Ler duração
+* Ler gênero
+* Inserir no vetor
+
+Validações:
+
+* Não permite ID duplicado
+* Verifica se a lista está cheia
+
+Se:
+
+```text id="86j6jh"
+quantidade == MAX
+```
+
+O cadastro é bloqueado.
+
+---
+
+## 2. Buscar Música
+
+Função:
+
+```c id="vlfx4a"
+buscarMusica()
+```
+
 Busca uma música pelo ID.
-Foi utilizada busca linear:
 
-```c
+Foi utilizada:
+
+**Busca linear (Linear Search)**
+
+O algoritmo percorre o vetor desde o início:
+
+```c id="wzt4yw"
 for (i = 0; i < quantidade; i++)
 ```
-Se encontrar:
-- Exibe todos os dados da música.
 
-Se não encontrar:
-- Exibe mensagem de erro.
----
+Comparando:
 
-### 3 - Editar música
-Localiza uma música pelo ID.
-Campos editáveis:
-- título
-- artista
-- duração
-- gênero
-
-O ID não pode ser alterado por ser a chave do registro.
----
-
-### 4 - Excluir música
-Remove uma música com base no ID.
-Após excluir, é necessário reorganizar o vetor deslocando os elementos.
-
-Exemplo:
-Antes:
-```text
-[ID1] [ID2] [ID3]
+```c id="1evwbe"
+lista[i].id == idBuscado
 ```
-Após excluir ID2:
-```text
-[ID1] [ID3]
-```
-Código utilizado:
-```c
-for (j = i; j < quantidade - 1; j++) {
-    lista[j] = lista[j + 1];
-}
 
-quantidade--;
-```
----
+Se encontrar, exibe todos os dados.
 
-### 5 - Listar músicas
-Exibe todas as músicas armazenadas na playlist.
-A listagem percorre todo o vetor até `quantidade`.
----
+Complexidade no pior caso:
 
-### 6 - Salvar CSV
-Salva todos os registros em um arquivo CSV.
-Nome do arquivo:
-```text
-playlist.csv
-```
----
-### 7 - Carregar CSV
-Ao iniciar o programa, os dados são carregados automaticamente do arquivo CSV.
-Se o arquivo não existir:
-- o programa inicia com playlist vazia.
----
-
-## 4. Algoritmos Utilizados
-### Inserção
-A inserção ocorre na próxima posição livre:
-```c
-lista[quantidade]
-```
-Depois:
-```c
-quantidade++;
-```
----
-### Busca Linear
-A busca percorre o vetor do início ao fim.
-Complexidade:
-```text
+```text id="bzgrcm"
 O(n)
 ```
-Onde:
-- n = quantidade de músicas
+
 ---
 
-### Exclusão com Deslocamento
-Após remover um elemento do meio da lista, todos os elementos à direita precisam ser movidos uma posição para a esquerda.
-Isso mantém a lista sequencial sem espaços vazios.
+## 3. Editar Música
+
+Função:
+
+```c id="rqvpkz"
+editarMusica()
+```
+
+Permite alterar:
+
+* título
+* artista
+* duração
+* gênero
+
+O ID não pode ser alterado, pois é a chave principal da música.
+
+Fluxo:
+
+1. usuário informa ID
+2. sistema localiza música
+3. campos são atualizados
+
 ---
 
-## 5. Manipulação de Arquivos
-Para persistência dos dados foram utilizadas funções da biblioteca `stdio.h`:
-- `fopen()`
-- `fprintf()`
-- `fscanf()`
-- `fclose()`
----
+## 4. Excluir Música
 
-### Formato CSV
+Função:
+
+```c id="h9u0ep"
+excluirMusica()
+```
+
+Remove uma música pelo ID.
+
+Como a lista usa vetor, a remoção exige reorganização.
+
 Exemplo:
 
-```csv
+Antes:
+
+```text id="p8m9n8"
+[10][20][30][40]
+```
+
+Excluir:
+
+```text id="qshsh7"
+20
+```
+
+Depois:
+
+```text id="7bvgm3"
+[10][30][40]
+```
+
+O deslocamento é feito com:
+
+```c id="0wdprc"
+lista[i] = lista[i + 1];
+```
+
+Após isso:
+
+```c id="0uyzdr"
+quantidade--;
+```
+
+---
+
+## 5. Listar Músicas
+
+Função:
+
+```c id="m2bexi"
+listarMusicas()
+```
+
+Exibe todas as músicas cadastradas.
+
+A ordem exibida segue a ordem de cadastro.
+
+Se a lista estiver vazia:
+
+```text id="wx0c2d"
+Nenhuma musica cadastrada.
+```
+
+---
+
+## 6. Salvar CSV
+
+Função:
+
+```c id="nff2ja"
+salvarCSV()
+```
+
+Responsável por salvar os dados em:
+
+```text id="3d7ej8"
+playlist.csv
+```
+
+Formato:
+
+```csv id="iqe3d4"
 id;titulo;artista;duracao;genero
 1;Bohemian Rhapsody;Queen;355;Rock
 2;Blinding Lights;The Weeknd;200;Pop
 ```
-Cada linha representa uma música.
----
-## 6. Como Compilar e Executar
-### Requisitos
-Ter o compilador GCC instalado com suporte ao padrão C99.
-Verificar instalação:
 
-```bash
-gcc --version
-```
+Bibliotecas e funções utilizadas:
+
+* `FILE`
+* `fopen`
+* `fprintf`
+* `fclose`
+
 ---
-### Compilação Manual
-```bash
+
+## 7. Carregar CSV
+
+Função:
+
+```c id="snyqjw"
+carregarCSV()
+```
+
+Executada no início do programa.
+
+Responsável por:
+
+* abrir CSV
+* ignorar cabeçalho
+* ler músicas salvas
+* reconstruir a lista
+
+Se o arquivo não existir:
+
+```text id="7gw77h"
+A lista inicia vazia.
+```
+
+---
+
+# Menu Interativo
+
+O programa possui menu numérico:
+
+```text id="7p1yjp"
+1 - Inserir musica
+2 - Buscar musica
+3 - Editar musica
+4 - Excluir musica
+5 - Listar musicas
+6 - Salvar e sair
+```
+
+---
+
+# Tratamento de Erros
+
+O programa trata:
+
+* Lista vazia
+* Lista cheia
+* ID duplicado
+* Música não encontrada
+* Arquivo inexistente
+* Erros de leitura
+
+---
+
+# Principais Conceitos de Estrutura de Dados Aplicados
+
+Neste trabalho foram aplicados:
+
+* Struct
+* Vetores
+* Lista simples
+* Inserção
+* Busca linear
+* Edição
+* Remoção com deslocamento
+* Persistência em CSV
+
+---
+
+# Dificuldades Encontradas
+
+Principais desafios:
+
+* Entender manipulação de `struct`
+* Trabalhar com vetores de registros
+* Implementar exclusão com deslocamento
+* Salvar e carregar arquivos CSV
+* Validar entradas corretamente
+
+Esses desafios ajudaram a desenvolver melhor a lógica de programação em C.
+
+---
+
+# Como Compilar
+
+Compilar com GCC:
+
+```bash id="4k1jlwm"
 gcc -std=c99 -Wall -pedantic playlist.c -o playlist
 ```
----
-### Execução
-No Windows:
 
-```bash
+---
+
+# Como Executar
+
+Windows:
+
+```bash id="jlwmjlwm"
 playlist.exe
 ```
-No Linux/macOS:
-```bash
+
+Linux/macOS:
+
+```bash id="l98d7c"
 ./playlist
 ```
----
-## 7. Testes Realizados
-Foram testados:
 
-- Inserção de músicas
-- Validação de ID duplicado
-- Busca por ID existente
-- Busca por ID inexistente
-- Edição de dados
-- Exclusão no início da lista
-- Exclusão no meio da lista
-- Exclusão no fim da lista
-- Salvamento em CSV
-- Carregamento automático do CSV
-- Lista vazia
-- Lista cheia
 ---
-## 8. Conclusão
-Este projeto permitiu praticar conceitos fundamentais da disciplina de Estrutura de Dados, como:
-- listas sequenciais
-- vetores
-- structs
-- busca linear
-- exclusão com deslocamento
-- manipulação de arquivos
-O trabalho contribuiu para o entendimento da organização de dados em memória e da persistência em arquivos.
+
+# Conclusão
+
+Este trabalho permitiu aplicar conceitos fundamentais de listas simples em C.
+
+Foi possível compreender melhor como funcionam:
+
+* registros com `struct`
+* vetores de registros
+* inserção
+* busca
+* edição
+* exclusão
+* persistência em arquivos CSV
+
+O projeto fortaleceu a compreensão prática de estruturas de dados sequenciais.
