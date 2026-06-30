@@ -30,14 +30,14 @@ int main() {
 
     do {
         printf("\n--- Menu ---\n");
-        printf("1. Inserir música\n");
-        printf("2. Buscar música\n");
-        printf("3. Editar música\n");
-        printf("4. Excluir música\n");
-        printf("5. Listar músicas\n");
+        printf("1. Inserir musica\n");
+        printf("2. Buscar musica\n");
+        printf("3. Editar musica\n");
+        printf("4. Excluir musica\n");
+        printf("5. Listar musica\n");
         printf("6. Salvar em CSV\n");
         printf("0. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
         getchar(); // Limpar o buffer do teclado
 
@@ -64,7 +64,7 @@ int main() {
                 printf("Saindo...\n");
                 break;
             default:
-                printf("Opção inválida!\n");
+                printf("Opção invalida!\n");
         }
     } while (opcao != 0);
 
@@ -90,21 +90,21 @@ void inserirMusica() {
     }
     lista[quantidade].id = novoID;
 
-    printf("Digite o título: ");
+    printf("Digite o titulo: ");
     scanf(" %[^\n]", lista[quantidade].titulo);
 
     printf("Digite o artista: ");
     scanf(" %[^\n]", lista[quantidade].artista);
 
-    printf("Digite a duração da música em segundos: ");
+    printf("Digite a duracao da musica em segundos: ");
     scanf("%d", &lista[quantidade].duracao);
 
-    printf("Digite o gênero: ");
+    printf("Digite o genero: ");
     scanf(" %[^\n]", lista[quantidade].genero);
 
     quantidade++;
 
-    printf("Música cadastrada com sucesso!\n");
+    printf("Musica cadastrada com sucesso!\n");
 }
 
 void buscarMusica() {
@@ -117,17 +117,17 @@ void buscarMusica() {
         return;
     }
 
-    printf("Digite o ID da música: ");
+    printf("Digite o ID da musica: ");
     scanf("%d", &idBusca);
 
     for (i = 0; i < quantidade; i++) {
         if (lista[i].id == idBusca) {
-            printf("\nMúsica encontrada!\n");
+            printf("\nMusica encontrada!\n");
             printf("ID: %d\n", lista[i].id);
-            printf("Título: %s\n", lista[i].titulo);
+            printf("Titulo: %s\n", lista[i].titulo);
             printf("Artista: %s\n", lista[i].artista);
-            printf("Duração: %d segundos\n", lista[i].duracao);
-            printf("Gênero: %s\n", lista[i].genero);
+            printf("Duracao: %d segundos\n", lista[i].duracao);
+            printf("Genero: %s\n", lista[i].genero);
 
             encontrado = 1;
             break;
@@ -135,7 +135,7 @@ void buscarMusica() {
     }
 
     if (encontrado == 0) {
-        printf("Música não encontrada!\n");
+        printf("Musica nao encontrada!\n");
     }
 }
     
@@ -149,26 +149,26 @@ void editarMusica() {
         return;
     }
 
-    printf("Digite o ID da música que deseja editar: ");
+    printf("Digite o ID da musica que deseja editar: ");
     scanf("%d", &idBusca);
 
     for (i = 0; i < quantidade; i++) {
         if (lista[i].id == idBusca) {
-            printf("Música encontrada! Digite os novos dados.\n");
+            printf("Musica encontrada! Digite os novos dados.\n");
 
-            printf("Novo título: ");
+            printf("Novo titulo: ");
             scanf(" %[^\n]", lista[i].titulo);
 
             printf("Novo artista: ");
             scanf(" %[^\n]", lista[i].artista);
 
-            printf("Nova duração (segundos): ");
+            printf("Nova duracao (segundos): ");
             scanf("%d", &lista[i].duracao);
 
-            printf("Novo gênero: ");
+            printf("Novo genero: ");
             scanf(" %[^\n]", lista[i].genero);
 
-            printf("Música editada com sucesso!\n");
+            printf("Musica editada com sucesso!\n");
 
             encontrado = 1;
             break;
@@ -176,7 +176,7 @@ void editarMusica() {
     }
 
     if (encontrado == 0) {
-        printf("Música não encontrada!\n");
+        printf("Musica nao encontrada!\n");
     }
 }
 
@@ -190,7 +190,7 @@ void excluirMusica() {
         return;
     }
 
-    printf("Digite o ID da música que deseja excluir: ");
+    printf("Digite o ID da musica que deseja excluir: ");
     scanf("%d", &idBusca);
 
     for (i = 0; i < quantidade; i++) {
@@ -203,13 +203,13 @@ void excluirMusica() {
 
             quantidade--;
 
-            printf("Música excluída com sucesso!\n");
+            printf("Musica excluida com sucesso!\n");
             break;
         }
     }
 
     if (encontrado == 0) {
-        printf("Música não encontrada!\n");
+        printf("Musica nao encontrada!\n");
     }
 }
 
@@ -224,12 +224,12 @@ void listarMusicas() {
     printf("\n=== PLAYLIST ===\n");
 
     for (i = 0; i < quantidade; i++) {
-        printf("\nMúsica %d\n", i + 1);
+        printf("\nMusica %d\n", i + 1);
         printf("ID: %d\n", lista[i].id);
-        printf("Título: %s\n", lista[i].titulo);
+        printf("Titulo: %s\n", lista[i].titulo);
         printf("Artista: %s\n", lista[i].artista);
-        printf("Duração: %d segundos\n", lista[i].duracao);
-        printf("Gênero: %s\n", lista[i].genero);
+        printf("Duracao: %d segundos\n", lista[i].duracao);
+        printf("Genero: %s\n", lista[i].genero);
     }
 }
 
@@ -269,7 +269,7 @@ void carregarCSV() {
     arquivo = fopen("playlist.csv", "r");
 
     if (arquivo == NULL) {
-        printf("Arquivo CSV não encontrado. Iniciando playlist vazia.\n");
+        printf("Arquivo CSV nao encontrado. Iniciando playlist vazia.\n");
         return;
     }
 
@@ -300,5 +300,5 @@ void carregarCSV() {
 
     fclose(arquivo);
 
-    printf("%d música(s) carregada(s) do CSV.\n", quantidade);
+    printf("%d musica(s) carregada(s) do CSV.\n", quantidade);
 }
