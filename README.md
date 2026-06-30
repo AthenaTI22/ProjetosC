@@ -100,20 +100,17 @@ protocolo;local;tipo;horario
 
 ---
 
-````md
-
-
 # Trabalho C2 — Fila de Impressão
 
 ## Objetivo
 
 Simular um sistema de fila de impressão com trabalhos **normais** e **prioritários**.
 
-O sistema segue a lógica de filas (**FIFO — First In, First Out**), onde o primeiro trabalho a entrar é o primeiro a ser processado. No entanto, trabalhos **prioritários** possuem preferência sobre os normais.
+O sistema segue a lógica de filas **FIFO (First In, First Out)**, onde o primeiro trabalho a entrar é o primeiro a ser processado. No entanto, trabalhos **prioritários** possuem preferência sobre os normais.
 
 ## Estrutura
 
-O programa utiliza duas filas implementadas com vetores de `struct`:
+O programa utiliza duas filas implementadas com vetor de `struct`:
 
 * **Fila normal simples**
 * **Fila prioritária circular**
@@ -157,17 +154,7 @@ Formato:
 id;nomeArquivo;paginas;tipo
 ```
 
-````
-
-Formato:
-
-```csv
-id;nomeArquivo;paginas;tipo
-```
-
-```
-```
-
+---
 
 # Tecnologias Utilizadas
 
